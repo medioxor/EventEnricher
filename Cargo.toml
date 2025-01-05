@@ -33,3 +33,4 @@ lto = true
 wdk-build = "0.3.0"
 bindgen = "0.71.1"
 cc = "1.2.7"
+winreg = "0.52.0"

@@ -19,7 +19,7 @@ use wdk_sys::{
 };
 use string::UnicodeString;
 use handler::{handle_close, handle_create, handle_ioctl, handle_read, handle_write};
-use crate::etw::EventRegisterEventEnricher;
+use crate::etw::{EventRegisterEventEnricher, EventUnregisterEventEnricher};
 
 #[global_allocator]
 static GLOBAL_ALLOCATOR: WdkAllocator = WdkAllocator;
@@ -76,6 +76,8 @@ pub unsafe extern "system" fn driver_entry(
     driver.MajorFunction[IRP_MJ_DEVICE_CONTROL as usize] = Some(handle_ioctl);
     driver.DriverUnload = Some(driver_exit);
 
+    unsafe { EventRegisterEventEnricher() };
+
     STATUS_SUCCESS
 }
 
@@ -84,6 +86,8 @@ extern "C" fn driver_exit(driver: *mut DRIVER_OBJECT) {
         let mut symlink_name: UNICODE_STRING = UnicodeString::from(SYMLINK_NAME).into();
         IoDeleteDevice((*driver).DeviceObject);
         let _ = IoDeleteSymbolicLink(&mut symlink_name);
+        EventUnregisterEventEnricher();
     };
+
     println!("[+] EventEnricher: driver exit");
 }

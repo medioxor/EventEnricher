@@ -1,8 +1,10 @@
 /target
 .vscode
-EventEnrich.h
-EventEnrich.rc
-EventEnrichTEMP.BIN
+EventEnricher.h
+EventEnricher.rc
+EventEnricher.res
+EventEnricherProvider.dll
+EventEnricherTEMP.BIN
 MSG00001.bin
 etw_provider-precompile.*
 .macro_eval.c
