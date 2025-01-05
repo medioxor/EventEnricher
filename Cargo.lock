@@ -6,6 +6,9 @@ version = 4
 name = "EventEnricher"
 version = "0.1.0"
 dependencies = [
+ "bindgen 0.71.1",
+ "cc",
+ "cty",
  "wdk",
  "wdk-alloc",
  "wdk-build",
@@ -94,10 +97,30 @@ dependencies = [
  "proc-macro2",
  "quote",
  "regex",
- "rustc-hash",
+ "rustc-hash 1.1.0",
  "shlex",
  "syn",
  "which",
+]
+
+[[package]]
+name = "bindgen"
+version = "0.71.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f58bf3d7db68cfbac37cfc485a8d711e87e064c3d0fe0435b92f7a407f9d6b3"
+dependencies = [
+ "bitflags",
+ "cexpr",
+ "clang-sys",
+ "itertools 0.13.0",
+ "log",
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "rustc-hash 2.1.0",
+ "shlex",
+ "syn",
 ]
 
 [[package]]
@@ -140,9 +163,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.2.6"
+version = "1.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d6dbb628b8f8555f86d0323c2eb39e3ec81901f4b83e091db8a6a76d316a333"
+checksum = "a012a0df96dd6d06ba9a1b29d6402d1a5d77c6befd2566afdc26e10603dc93d7"
 dependencies = [
  "shlex",
 ]
@@ -228,6 +251,12 @@ name = "colorchoice"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b63caa9aa9397e2d9480a9b13673856c78d8ac123288526c37d7839f2a86990"
+
+[[package]]
+name = "cty"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b365fabc795046672053e29c954733ec3b05e4be654ab130fe8f1f94d7051f35"
 
 [[package]]
 name = "either"
@@ -483,6 +512,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
+name = "rustc-hash"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7fb8039b3032c191086b10f11f319a6e99e1e82889c5cc6046f515c9db1d497"
+
+[[package]]
 name = "rustix"
 version = "0.38.42"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -732,7 +767,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4b276786d848e5ab00e021968e89cfdc591938b69741a3733e7e3d91b23f547f"
 dependencies = [
  "anyhow",
- "bindgen",
+ "bindgen 0.69.5",
  "camino",
  "cargo_metadata",
  "cfg-if",
@@ -773,7 +808,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "10f974829a3b0b362723d55f0d05d8f1715bb7a88297558c4127f69d85bbff7e"
 dependencies = [
  "anyhow",
- "bindgen",
+ "bindgen 0.69.5",
  "cargo_metadata",
  "cc",
  "lazy_static",

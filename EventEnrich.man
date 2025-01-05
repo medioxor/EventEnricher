@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<instrumentationManifest
+    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    >
+    <instrumentation>
+        <events>
+            <provider 
+                name="EventEnricher" 
+                guid="{D8909C24-5BE9-4502-98CA-AB7BDC24899D}" 
+                symbol="EventEnricherDrv" 
+                resourceFileName="C:\Windows\EventEnricher.sys" 
+                messageFileName="C:\Windows\EventEnricher.sys"
+                >
+                 <channels>
+                    <channel name="EventEnricher/Operational" chid="EventEnricher" enabled="true" type="Operational" isolation="System">
+                        <logging>
+                            <maxSize>67112660</maxSize>
+                        </logging>
+                  </channel>
+				 </channels>
+                <templates>
+                   <template tid="process">
+                        <data 
+                            name="EventTime" 
+                            inType="win:FILETIME"
+                            outType="xs:dateTime">
+                        </data>
+                        <data 
+                            name="FilePath" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="CommandLine" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ProcessId" 
+                            inType="win:UInt64"
+                            outType="win:unsignedLong">
+                        </data>
+                    </template>
+
+                    <template tid="thread">
+                        <data 
+                            name="EventTime" 
+                            inType="win:FILETIME"
+                            outType="xs:dateTime">
+                        </data>
+                        <data 
+                            name="ProcessId" 
+                             inType="win:UInt64"
+                            outType="xs:unsignedLong">
+                        </data>
+                        <data 
+                            name="ThreadId" 
+                             inType="win:UInt64"
+                            outType="xs:unsignedLong">
+                        </data>
+                    </template>
+                </templates>
+                <events>
+                    <event value="1" 
+                        channel="EventEnricher"
+                        level="win:Informational" 
+                        template="process" 
+						opcode="win:Info"
+                        symbol="ProcessNotify"
+                        message ="$(string.ProcessNotify.EventMessage)"/>
+                    <event value="2" 
+                        channel="EventEnricher"
+                        level="win:Informational" 
+                        template="thread" 
+						opcode="win:Info"
+                        symbol="ThreadNotify"
+                        message ="$(string.ThreadNotify.EventMessage)"/>
+                </events>
+            </provider>
+        </events>
+    </instrumentation>
+    <localization xmlns="http://schemas.microsoft.com/win/2004/08/events">
+        <resources culture="en-US">
+            <stringTable>
+                <string id="ProcessNotify.EventMessage" value="Process Notification Event %n%n EventTime: %1 %n"/>
+                <string id="ThreadNotify.EventMessage" value="Thread Notification Event %n%n EventTime: %1 %n"/>
+            </stringTable>
+        </resources>
+    </localization>
+</instrumentationManifest>
