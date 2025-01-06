@@ -61,7 +61,7 @@ fn main() {
         .start_and_process()
         .unwrap();
 
-    std::thread::sleep(Duration::new(20, 0));
+    std::thread::sleep(Duration::new(5, 0));
 
     trace.stop().unwrap(); // This is not required, as it will automatically be stopped on Drop
     println!("Done: {:?} events", N_EVENTS);

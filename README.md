@@ -1,4 +1,4 @@
-# Event Enricher
+# event_enricher
 Driver and service which help enrich event logs for detection purposes
 
 # Build
@@ -22,7 +22,7 @@ Assuming they have been installed, you can build the driver by:
 
 This will result in the driver package being within the `driver\target\debug\event_enricher_package` directory.
 
-# Execute
+# Execution
 The driver is not signed and so test signing must be enabled. To enable test signing, open a command prompt as Administrator and execute:
 ```
 bcdedit /set testsigning on
@@ -31,21 +31,56 @@ Restart your computer to apply the changes.
 
 To install the driver, open a command prompt as Administrator and execute:
 ```
-sc create EventEnricher type=kernel binPath=<path_to_driver_sys>
-sc start EventEnricher
+sc create event_enricher type=kernel binPath=<path_to_driver_sys>
+sc start event_enricher
 ```
 Replace `<path_to_driver_sys>` with the path to the driver's `.sys` file.
 
+Once installed, go ahead and place `driver\EventEnricherProvider.dll` into `C:\Windows\EventEnricherProvider.dll` followed by executing the following command in order to install the manifest for the custom event logs:
+
+```
+wevtutil.exe im driver\EventEnricher.man
+```
+
+Since the driver should now be generating logs, go ahead and execute `service\target\debug\` which will output the events being created by the driver as seen below:
+```
+Process Start:
+        PID: 2428,
+        Image: \??\C:\Users\user\.cargo\bin\rustfmt.exe,
+        Cmd: "rustfmt"
+Thread Start:
+        PID: 2428,
+        TID: 5836
+Thread Start:
+        PID: 2428,
+        TID: 1632
+Thread Start:
+        PID: 2428,
+        TID: 1680
+Process Start:
+        PID: 5424,
+        Image: \??\C:\Users\user\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\bin\rustfmt.exe,
+        Cmd: "C:\Users\user\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\bin\rustfmt.exe"
+```
+
+# Removal
 To delete the driver, open a command prompt as Administrator and execute:
 ```
-sc stop EventEnricher
-sc delete EventEnricher
+sc stop event_enricher
+sc delete event_enricher
 ```
 
 To disable test signing, open a command prompt as Administrator and execute:
 ```
 bcdedit /set testsigning off
 ```
+
+To remove the manifest delete `C:\Windows\EventEnricher.dll` and execute the following command:
+
+```
+wevtutil.exe um driver\EventEnricher.man
+```
+
 Restart your computer to apply the changes.
 
 # Inspiration/References
