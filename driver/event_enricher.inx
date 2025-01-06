@@ -6,35 +6,35 @@ Class = "ActivityMonitor"
 ClassGuid = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
 Provider = %ManufacturerName%
 DriverVer = 1/1/2025,0.0.0.1
-CatalogFile = EventEnricher.cat
+CatalogFile = event_enricher.cat
 
 ; https://learn.microsoft.com/en-us/windows-hardware/drivers/install/using-dirids
 [DestinationDirs]
 DefaultDestDir = 12
-EventEnricher.DriverFiles = 12
+event_enricher.DriverFiles = 12
 
 [DefaultInstall.NTamd64]
 OptionDesc          = %ServiceDescription%
-CopyFiles           = EventEnricher.DriverFiles
+CopyFiles           = event_enricher.DriverFiles
 
 [DefaultInstall.Services]
-AddService          = %ServiceName%,,EventEnricher.Service
+AddService          = %ServiceName%,,event_enricher.Service
 
 [DefaultUninstall.NTamd64]
-DelFiles            = EventEnricher.DriverFiles
+DelFiles            = event_enricher.DriverFiles
 LegacyUninstall     = 1
 
 ; https://learn.microsoft.com/en-us/windows-hardware/drivers/ifs/creating-an-inf-file-for-a-minifilter-driver#serviceinstall-section-required
-[EventEnricher.Service]
+[event_enricher.Service]
 DisplayName         = %ServiceDescription%
 Description			= %ServiceDescription%
 ServiceType         = 1
 StartType           = 3
 ErrorControl        = 1
-ServiceBinary       = %12%\EventEnricher.sys
-AddReg              = EventEnricher.AddRegistry
+ServiceBinary       = %12%\event_enricher.sys
+AddReg              = event_enricher.AddRegistry
 
-[EventEnricher.AddRegistry]
+[event_enricher.AddRegistry]
 HKR,,"DebugFlags",0x00010001 ,0x0
 HKR,,"SupportedFeatures",0x00010001,0x3
 HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
@@ -42,22 +42,22 @@ HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
 HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
 
 
-[EventEnricher.DriverFiles]
+[event_enricher.DriverFiles]
 %DriverName%.sys
 
 [SourceDisksFiles]
-EventEnricher.sys = 1,,
+event_enricher.sys = 1,,
 
 [SourceDisksNames]
 1 = %DiskId1%,,,
 
 [Strings]
 ManufacturerName        = "Medioxor"
-ServiceDescription      = "EventEnricher Driver"
-ServiceName             = "EventEnricherDrv"
-DriverName              = "EventEnricher"
-DiskId1                 = "EventEnricher Disk"
-DefaultInstance         = "EventEnricher Instance"
-Instance1.Name          = "EventEnricher Instance"
+ServiceDescription      = "event_enricher Driver"
+ServiceName             = "event_enricher"
+DriverName              = "event_enricher"
+DiskId1                 = "event_enricher Disk"
+DefaultInstance         = "event_enricher Instance"
+Instance1.Name          = "event_enricher Instance"
 Instance1.Altitude      = "381337"; https://learn.microsoft.com/en-us/windows-hardware/drivers/ifs/load-order-groups-and-altitudes-for-minifilter-drivers#types-of-load-order-groups-and-their-altitude-ranges
 Instance1.Flags         = 0x0              ; Allow all attachments

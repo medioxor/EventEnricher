@@ -20,7 +20,7 @@ Assuming they have been installed, you can build the driver by:
     ```
 - Execute `cargo make`
 
-This will result in the driver package being within the `target\debug\EventEnricher_package` directory.
+This will result in the driver package being within the `driver\target\debug\event_enricher_package` directory.
 
 # Execute
 The driver is not signed and so test signing must be enabled. To enable test signing, open a command prompt as Administrator and execute:
@@ -47,3 +47,8 @@ To disable test signing, open a command prompt as Administrator and execute:
 bcdedit /set testsigning off
 ```
 Restart your computer to apply the changes.
+
+# Inspiration/References
+- https://github.com/jsecurity101/JonMon
+- https://github.com/0xflux/Sanctum
+- https://codentium.com/guides/windows-dev/

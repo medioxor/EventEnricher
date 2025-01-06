@@ -3,6 +3,7 @@ use alloc::{string::String, vec::Vec};
 use core::slice;
 use core::str;
 
+#[derive(Default)]
 pub struct UnicodeString(pub UNICODE_STRING);
 
 impl UnicodeString {
@@ -50,5 +51,27 @@ impl Into<UNICODE_STRING> for UnicodeString {
 impl Into<String> for &UnicodeString {
     fn into(self) -> String {
         self.to_string()
+    }
+}
+
+impl From<*const UNICODE_STRING> for UnicodeString {
+    fn from(ptr: *const UNICODE_STRING) -> Self {
+        if ptr.is_null() {
+            return UnicodeString::default();
+        }
+        let unicode_string = unsafe { *ptr };
+        if unicode_string.Buffer.is_null() {
+            return UnicodeString::default();
+        }
+        UnicodeString(unicode_string)
+    }
+}
+
+impl From<UNICODE_STRING> for UnicodeString {
+    fn from(unicode_string: UNICODE_STRING) -> Self {
+        if unicode_string.Buffer.is_null() {
+            return UnicodeString::default();
+        }
+        UnicodeString(unicode_string)
     }
 }

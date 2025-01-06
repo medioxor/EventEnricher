@@ -24,7 +24,24 @@ unsafe extern "C" {
         ProcessId: c_ulonglong,
         ThreadId: c_ulonglong,
     );
+    pub fn _KeQuerySystemTime(SystemTime: *mut FILETIME);
 }
 
+pub fn get_system_time() -> FILETIME {
+    let mut time: FILETIME = FILETIME {
+        dwLowDateTime: 0,
+        dwHighDateTime: 0,
+    };
+
+    unsafe {
+        KeQuerySystemTime(&mut time);
+    }
+
+    time
+}
+
+pub use self::_KeQuerySystemTime as KeQuerySystemTime;
 pub use self::_EventRegisterEventEnricher as EventRegisterEventEnricher;
 pub use self::_EventUnregisterEventEnricher as EventUnregisterEventEnricher;
+pub use self::_EventWriteProcessNotify as EventWriteProcessNotify;
+pub use self::_EventWriteThreadNotify as EventWriteThreadNotify;

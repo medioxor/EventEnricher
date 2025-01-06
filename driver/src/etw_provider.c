@@ -26,3 +26,7 @@ ULONG _EventWriteThreadNotify(
 ) {
     EventWriteThreadNotify(Activity, EventTime, ProcessId, ThreadId);
 }
+
+void _KeQuerySystemTime(PLARGE_INTEGER CurrentTime) {
+    KeQuerySystemTime(CurrentTime);
+}

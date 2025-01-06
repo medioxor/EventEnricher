@@ -12,8 +12,8 @@
                 name="EventEnricher" 
                 guid="{D8909C24-5BE9-4502-98CA-AB7BDC24899D}" 
                 symbol="EventEnricherDrv" 
-                resourceFileName="C:\Windows\EventEnricher.sys" 
-                messageFileName="C:\Windows\EventEnricher.sys"
+                resourceFileName="C:\Windows\EventEnricherProvider.dll" 
+                messageFileName="C:\Windows\EventEnricherProvider.dll"
                 >
                  <channels>
                     <channel name="EventEnricher/Operational" chid="EventEnricher" enabled="true" type="Operational" isolation="System">

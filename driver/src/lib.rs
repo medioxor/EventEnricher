@@ -19,6 +19,7 @@ use wdk_sys::{
 };
 use string::UnicodeString;
 use handler::{handle_close, handle_create, handle_ioctl, handle_read, handle_write};
+use process::{register_process_callbacks, unregister_process_callbacks};
 use crate::etw::{EventRegisterEventEnricher, EventUnregisterEventEnricher};
 
 #[global_allocator]
@@ -64,7 +65,6 @@ pub unsafe extern "system" fn driver_entry(
 
     if !nt_success(status) {
         println!("[!] EventEnricher: failed to create symbolic link, {status}");
-        // safe because if we got here we are sure that device is valid due to checking nt_success when calling IoCreateDevice
         unsafe { IoDeleteDevice(device) };
         return status;
     }
@@ -78,6 +78,11 @@ pub unsafe extern "system" fn driver_entry(
 
     unsafe { EventRegisterEventEnricher() };
 
+    match register_process_callbacks() {
+        Ok(_) => println!("[+] EventEnricher: process callbacks registered"),
+        Err(e) => println!("[!] EventEnricher: failed to register process callbacks, {:#X}", e as u32)
+    }
+    
     STATUS_SUCCESS
 }
 
@@ -88,6 +93,11 @@ extern "C" fn driver_exit(driver: *mut DRIVER_OBJECT) {
         let _ = IoDeleteSymbolicLink(&mut symlink_name);
         EventUnregisterEventEnricher();
     };
+
+    match unregister_process_callbacks() {
+        Ok(_) => println!("[+] EventEnricher: process callbacks unregistered"),
+        Err(e) => println!("[!] EventEnricher: failed to unregister process callbacks, {:#X}", e as u32)
+    }
 
     println!("[+] EventEnricher: driver exit");
 }

@@ -20,7 +20,6 @@ pub fn get_windows_kits_dir() -> Result<PathBuf, Box<dyn Error>> {
 }
 
 pub fn get_km_dir(dir_type: DirectoryType) -> Result<PathBuf, Box<dyn Error>> {
-    // We first append lib to the path and read the directory..
     let dir = get_windows_kits_dir()?
         .join(match dir_type {
             DirectoryType::Include => "Include",
@@ -28,8 +27,6 @@ pub fn get_km_dir(dir_type: DirectoryType) -> Result<PathBuf, Box<dyn Error>> {
         })
         .read_dir()?;
 
-    // In the lib directory we may have one or more directories named after the version of Windows,
-    // we will be looking for the highest version number.
     let dir = dir
         .filter_map(|dir| dir.ok())
         .map(|dir| dir.path())
@@ -42,7 +39,6 @@ pub fn get_km_dir(dir_type: DirectoryType) -> Result<PathBuf, Box<dyn Error>> {
         })
         .max().unwrap();
 
-    // Finally append km to the path to get the path to the kernel mode libraries.
     Ok(dir.join("km"))
 }
 
