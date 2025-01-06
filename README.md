@@ -42,7 +42,7 @@ Once installed, go ahead and place `driver\EventEnricherProvider.dll` into `C:\W
 wevtutil.exe im driver\EventEnricher.man
 ```
 
-Since the driver should now be generating logs, go ahead and execute `service\target\debug\` which will output the events being created by the driver as seen below:
+Since the driver should now be generating logs, go ahead and execute `service\target\debug\service.exe` which will output the events being created by the driver as seen below:
 ```
 Process Start:
         PID: 2428,
