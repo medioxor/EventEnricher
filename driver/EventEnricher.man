@@ -30,7 +30,57 @@
                             outType="xs:dateTime">
                         </data>
                         <data 
-                            name="FilePath" 
+                            name="ProcessId" 
+                            inType="win:UInt64"
+                            outType="win:unsignedLong">
+                        </data>
+                        <data 
+                            name="ParentProcessId" 
+                            inType="win:UInt64"
+                            outType="win:unsignedLong">
+                        </data>
+                        <data 
+                            name="CreatingThreadId" 
+                            inType="win:UInt64"
+                            outType="win:unsignedLong">
+                        </data>
+                        <data 
+                            name="ProcessUsername" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ProcessSid" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ProcessLogonId" 
+                             inType="win:UInt64"
+                            outType="xs:unsignedLong">
+                        </data>
+                        <data 
+                            name="ParentUsername" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ParentSid" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ParentLogonId" 
+                             inType="win:UInt64"
+                            outType="xs:unsignedLong">
+                        </data>
+                        <data 
+                            name="EprocessHash" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data 
+                            name="ImageFileName" 
                             inType="win:UnicodeString"
                             outType="xs:string">
                         </data>
@@ -38,11 +88,6 @@
                             name="CommandLine" 
                             inType="win:UnicodeString"
                             outType="xs:string">
-                        </data>
-                        <data 
-                            name="ProcessId" 
-                            inType="win:UInt64"
-                            outType="win:unsignedLong">
                         </data>
                     </template>
 
@@ -61,6 +106,11 @@
                             name="ThreadId" 
                              inType="win:UInt64"
                             outType="xs:unsignedLong">
+                        </data>
+                        <data 
+                            name="Callstack" 
+                            inType="win:UnicodeString"
+                            outType="xs:string">
                         </data>
                     </template>
                 </templates>

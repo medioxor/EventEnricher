@@ -22,6 +22,10 @@ impl UnicodeString {
         let slice = unsafe { slice::from_raw_parts(self.0.Buffer, len) };
         String::from_utf16_lossy(slice)
     }
+
+    pub fn as_mut_buffer_ptr(&mut self) -> *mut u16 {
+        self.0.Buffer as *mut u16
+    }
 }
 
 impl From<&str> for UnicodeString {

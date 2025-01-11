@@ -15,20 +15,20 @@ pub extern "C" fn process_notify(_process: PEPROCESS, process_id: HANDLE, create
         None
     };
     
-    let image_name = if let Some(created) = created {
+    let mut image_name = if let Some(created) = created {
         UnicodeString::from(created.ImageFileName)
     } else {
         UnicodeString::default()
     };
     
-    let command_line = if let Some(created) = created {
+    let mut command_line = if let Some(created) = created {
         UnicodeString::from(created.CommandLine)
     } else {
         UnicodeString::default()
     };
 
     unsafe {
-        EventWriteProcessNotify(null_mut(), &mut event_time as *mut FILETIME, image_name.0.Buffer, command_line.0.Buffer, process_id as u64);
+        EventWriteProcessNotify(null_mut(), event_time.as_mut_ptr(), process_id as u64, image_name.as_mut_buffer_ptr(), command_line.as_mut_buffer_ptr());
     }
 }
 

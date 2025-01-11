@@ -14,9 +14,9 @@ unsafe extern "C" {
     pub fn _EventWriteProcessNotify(
         Activity: *mut GUID,
         EventTime: *mut FILETIME,
+        ProcessId: c_ulonglong,
         FilePath: PCWSTR,
         CommandLine: PCWSTR,
-        ProcessId: c_ulonglong,
     );
     pub fn _EventWriteThreadNotify(
         Activity: *mut GUID,
@@ -25,6 +25,12 @@ unsafe extern "C" {
         ThreadId: c_ulonglong,
     );
     pub fn _KeQuerySystemTime(SystemTime: *mut FILETIME);
+}
+
+impl FILETIME {
+    pub fn as_mut_ptr(&mut self) -> *mut FILETIME {
+        self as *mut FILETIME
+    }
 }
 
 pub fn get_system_time() -> FILETIME {

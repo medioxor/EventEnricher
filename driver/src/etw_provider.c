@@ -11,11 +11,11 @@ ULONG _EventUnregisterEventEnricher() {
 ULONG _EventWriteProcessNotify(
     GUID* Activity,
     FILETIME* EventTime,
+    unsigned __int64 ProcessId,
     PCWSTR FilePath,
-    PCWSTR CommandLine,
-    unsigned __int64 ProcessId
+    PCWSTR CommandLine
 ) {
-    EventWriteProcessNotify(Activity, EventTime, FilePath, CommandLine, ProcessId);
+    EventWriteProcessNotify(Activity, EventTime, ProcessId, FilePath, CommandLine);
 }
 
 ULONG _EventWriteThreadNotify(
